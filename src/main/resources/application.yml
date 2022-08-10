@@ -1,0 +1,36 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: cloud-config
+  profiles:
+    active: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/because9/{application}
+          default-label: master
+          repos:
+            dev:
+              pattern:
+                - 'cloud-config/dev'
+              uri: https://github.com/because9/{application}
+              default-label: master
+              searchPaths: '{profile}'
+            staging:
+              pattern:
+                - 'cloud-config/staging'
+              uri: https://github.com/because9/{application}
+              default-label: master
+              searchPaths: '{profile}'
+            prod:
+              pattern:
+                - 'cloud-config/prod'
+              uri: https://github.com/because9/{application}
+              default-label: master
+              searchPaths: '{profile}'
+        native:
+          search-locations:
+            classpath:/local/
